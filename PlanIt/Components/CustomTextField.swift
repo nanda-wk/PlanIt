@@ -13,7 +13,6 @@ struct CustomTextField: View {
     @Binding var text: String
     var isSecure = false
 
-
     var body: some View {
         HStack(spacing: 20) {
             Image(systemName: icon)
@@ -24,7 +23,6 @@ struct CustomTextField: View {
             } else {
                 SecureField(title, text: $text)
             }
-
         }
         .padding()
         .background(

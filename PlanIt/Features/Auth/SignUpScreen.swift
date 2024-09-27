@@ -5,6 +5,7 @@
 //  Created by Nanda WK on 2024-09-27.
 //
 
+import AuthenticationServices
 import SwiftUI
 
 struct SignUpScreen: View {
@@ -35,8 +36,8 @@ struct SignUpScreen: View {
 
             Spacer(minLength: 20)
 
-            Button {
-
+            NavigationLink {
+                TabScreen()
             } label: {
                 AppButton(title: "Create Account")
             }
@@ -46,17 +47,24 @@ struct SignUpScreen: View {
 //            Text("or with")
 //                .font(.subheadline)
 //                .foregroundStyle(.gray)
+//
+//            SignInWithAppleButton(.signUp) { appleIDRequest in
+//
+//            } onCompletion: { result in
+//
+//            }
+//            .frame(height: 60)
 
-            Button {
-
+            NavigationLink {
+                SignInScreen()
             } label: {
                 Text("Have an account? **Sign In**")
-                    .font(.headline)
+                    .font(.body)
                     .foregroundStyle(.gray)
             }
-
         }
         .padding()
+        .navigationBarBackButtonHidden(true)
     }
 }
 

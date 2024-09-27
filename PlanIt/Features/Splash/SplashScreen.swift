@@ -9,44 +9,43 @@ import SwiftUI
 
 struct SplashScreen: View {
     var body: some View {
-        VStack {
-            Image(.splash)
-                .resizable()
-                .scaledToFit()
-
-            VStack(spacing: 20) {
-                Text("PlantIt")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundStyle(.royalBlue)
-
-                Text("Plan what you will do to be more organized for\n today, tomorrow and beyond")
-                    .font(.subheadline)
-                    .multilineTextAlignment(.center)
-            }
-
-            Spacer()
-
+        NavigationStack {
             VStack {
-                Button {
+                Image(.splash)
+                    .resizable()
+                    .scaledToFit()
 
-                } label: {
-                    AppButton(title: "Login")
-
-                }
-
-                Button {
-
-                } label: {
-                    Text("Sign Up")
-                        .font(.headline)
+                VStack(spacing: 20) {
+                    Text("PlantIt")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
                         .foregroundStyle(.royalBlue)
-                        .frame(maxWidth: .infinity, maxHeight: 60)
+
+                    Text("Plan what you will do to be more organized for\n today, tomorrow and beyond")
+                        .font(.subheadline)
+                        .multilineTextAlignment(.center)
                 }
 
+                Spacer()
 
+                VStack {
+                    NavigationLink {
+                        SignInScreen()
+                    } label: {
+                        AppButton(title: "Login")
+                    }
+
+                    NavigationLink {
+                        SignUpScreen()
+                    } label: {
+                        Text("Sign Up")
+                            .font(.headline)
+                            .foregroundStyle(.royalBlue)
+                            .frame(maxWidth: .infinity, maxHeight: 60)
+                    }
+                }
+                .padding()
             }
-            .padding()
         }
     }
 }

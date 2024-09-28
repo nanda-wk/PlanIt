@@ -13,7 +13,7 @@ struct HomeScreen: View {
         GridItem(.flexible()),
     ]
     var body: some View {
-        ScrollView(showsIndicators: false) {
+        ScrollView {
             VStack {
                 HStack {
                     VStack(alignment: .leading) {
@@ -62,8 +62,10 @@ struct HomeScreen: View {
                     }
                 }
             }
-            .padding()
+            .padding([.horizontal, .bottom])
         }
+        .scrollIndicators(.hidden)
+        .padding(.top, 1)
     }
 
     var myTask: some View {

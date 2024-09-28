@@ -20,7 +20,7 @@ struct TabScreen: View {
                     }
                     .tag(TabItem.home)
                 case .task:
-                    Text("Task")
+                    TaskScreen()
                         .tag(TabItem.task)
                 case .activity:
                     Text("Activity")

@@ -18,6 +18,7 @@ struct TaskCard: View {
                     .foregroundStyle(task.foregroundColor)
                     .padding(.trailing)
                     .padding(.leading, 6)
+                    .padding(.vertical, 10)
 
                 VStack(alignment: .leading) {
                     HStack {

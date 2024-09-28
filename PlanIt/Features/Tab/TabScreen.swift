@@ -12,18 +12,32 @@ struct TabScreen: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            TabView {
-                NavigationStack {
-                    Text(selected.rawValue.capitalized)
+            Group {
+                switch selected {
+                case .home:
+                    NavigationStack {
+                        HomeScreen()
+                    }
+                    .tag(TabItem.home)
+                case .task:
+                    Text("Task")
+                        .tag(TabItem.task)
+                case .activity:
+                    Text("Activity")
+                        .tag(TabItem.activity)
+                case .folder:
+                    Text("Folders")
+                        .tag(TabItem.folder)
                 }
             }
-            CustomTabBar()
+            .safeAreaInset(edge: .bottom) {
+                customTabBar
+            }
         }
         .navigationBarBackButtonHidden(true)
     }
 
-    @ViewBuilder
-    private func CustomTabBar() -> some View {
+    var customTabBar: some View {
         HStack(spacing: 10) {
             VStack(spacing: 4) {
                 Image(selected == .home ? .homeFill : .home)

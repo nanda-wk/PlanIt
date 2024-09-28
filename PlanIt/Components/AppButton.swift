@@ -10,7 +10,7 @@ import SwiftUI
 struct AppButton: View {
     var title: String
     var height: CGFloat = 60
-    var cornerRadius: CGFloat = 18
+    var cornerRadius: CGFloat = 14
 
     var body: some View {
         ZStack {

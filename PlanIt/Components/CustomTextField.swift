@@ -13,21 +13,50 @@ struct CustomTextField: View {
     @Binding var text: String
     var isSecure = false
 
-    var body: some View {
-        HStack(spacing: 20) {
-            Image(systemName: icon)
-                .foregroundStyle(.gray.opacity(0.5))
+    @State private var showPassword = true
 
-            if !isSecure {
-                TextField(title, text: $text)
-            } else {
-                SecureField(title, text: $text)
+    var body: some View {
+        VStack {
+            ZStack(alignment: .trailing) {
+                HStack(spacing: 20) {
+                    Image(systemName: icon)
+                        .foregroundStyle(.gray.opacity(0.5))
+
+                    Group {
+                        if !isSecure || !showPassword {
+                            TextField(title, text: $text)
+
+                        } else {
+                            SecureField(title, text: $text)
+                        }
+                    }
+                    .textInputAutocapitalization(.never)
+                    .keyboardType(.asciiCapable)
+                    .autocorrectionDisabled(true)
+                }
+
+                if isSecure {
+                    Button {
+                        showPassword.toggle()
+                    } label: {
+                        Image(systemName: showPassword ? "eye" : "eye.slash")
+                            .tint(.gray.opacity(0.5))
+                    }
+                }
             }
+
+            .padding(.bottom, 5)
+
+            Divider()
         }
         .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 18)
-                .stroke(.gray.opacity(0.3), lineWidth: 1)
-        )
+//        .background(
+//            RoundedRectangle(cornerRadius: 18)
+//                .stroke(.gray.opacity(0.3), lineWidth: 1)
+//        )
     }
+}
+
+#Preview {
+    CustomTextField(icon: "lock", title: "Password", text: .constant(""), isSecure: true)
 }

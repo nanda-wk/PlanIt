@@ -23,7 +23,7 @@ struct SignInScreen: View {
             VStack(spacing: 20) {
                 CustomTextField(icon: "envelope", title: "Email or Username", text: $email)
 
-                CustomTextField(icon: "lock", title: "Password", text: $password)
+                CustomTextField(icon: "lock", title: "Password", text: $password, isSecure: true)
 
                 Button {} label: {
                     Text("Forgot Password?")
@@ -48,7 +48,7 @@ struct SignInScreen: View {
             } label: {
                 Text("Don't have an account? **Sign Up**")
                     .font(.body)
-                    .foregroundStyle(.gray)
+                    .foregroundStyle(.textSecondary)
             }
         }
         .padding()

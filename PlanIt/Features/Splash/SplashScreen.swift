@@ -23,6 +23,7 @@ struct SplashScreen: View {
 
                     Text("Plan what you will do to be more organized for\n today, tomorrow and beyond")
                         .font(.subheadline)
+                        .foregroundStyle(.textSecondary)
                         .multilineTextAlignment(.center)
                 }
 

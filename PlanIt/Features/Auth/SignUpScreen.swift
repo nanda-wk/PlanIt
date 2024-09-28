@@ -60,7 +60,7 @@ struct SignUpScreen: View {
             } label: {
                 Text("Have an account? **Sign In**")
                     .font(.body)
-                    .foregroundStyle(.gray)
+                    .foregroundStyle(.textSecondary)
             }
         }
         .padding()

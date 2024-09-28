@@ -12,28 +12,29 @@ struct SignInScreen: View {
     @State private var password = ""
     var body: some View {
         VStack {
+            Spacer()
+
             Text("Login")
-                .font(.largeTitle)
-                .fontWeight(.bold)
+                .font(.robotoB(38))
                 .foregroundStyle(.royalBlue)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            Spacer(minLength: 20)
+            Spacer()
 
-            VStack(spacing: 20) {
+            VStack {
                 CustomTextField(icon: "envelope", title: "Email or Username", text: $email)
 
                 CustomTextField(icon: "lock", title: "Password", text: $password, isSecure: true)
 
                 Button {} label: {
                     Text("Forgot Password?")
-                        .font(.headline)
+                        .font(.robotoR(14))
                         .foregroundStyle(.royalBlue)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
+                        .frame(maxWidth: .infinity, alignment: .topTrailing)
                 }
             }
 
-            Spacer(minLength: 20)
+            Spacer()
 
             NavigationLink {
                 TabScreen()
@@ -43,15 +44,22 @@ struct SignInScreen: View {
 
             Spacer()
 
+            CustomDivider()
+
+            SocialButton {} googleAuthAction: {}
+
+            Spacer()
+
             NavigationLink {
                 SignUpScreen()
             } label: {
                 Text("Don't have an account? **Sign Up**")
-                    .font(.body)
+                    .font(.robotoR(16))
                     .foregroundStyle(.textSecondary)
             }
         }
-        .padding()
+        .padding(.vertical)
+        .padding(.horizontal, 30)
         .navigationBarBackButtonHidden(true)
     }
 }

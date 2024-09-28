@@ -30,6 +30,7 @@ struct CustomTextField: View {
                             SecureField(title, text: $text)
                         }
                     }
+                    .font(.robotoR(18))
                     .textInputAutocapitalization(.never)
                     .keyboardType(.asciiCapable)
                     .autocorrectionDisabled(true)

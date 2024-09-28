@@ -18,12 +18,11 @@ struct HomeScreen: View {
                 HStack {
                     VStack(alignment: .leading) {
                         Text("Hi, Nanda")
-                            .font(.title)
-                            .fontWeight(.bold)
+                            .font(.robotoB(30))
                             .foregroundStyle(.textPrimary)
 
                         Text("Let's make this day productive")
-                            .font(.subheadline)
+                            .font(.robotoR(16))
                             .foregroundStyle(.gray)
                     }
 
@@ -41,15 +40,14 @@ struct HomeScreen: View {
                 VStack {
                     HStack {
                         Text("Today Task")
-                            .font(.title)
-                            .fontWeight(.bold)
+                            .font(.robotoB(26))
                             .foregroundStyle(.textPrimary)
 
                         Spacer()
 
                         Button {} label: {
                             Text("View all")
-                                .font(.callout)
+                                .font(.robotoR(14))
                                 .foregroundStyle(.textPrimary)
                         }
                     }
@@ -71,8 +69,7 @@ struct HomeScreen: View {
     var myTask: some View {
         VStack {
             Text("My Task")
-                .font(.title)
-                .fontWeight(.bold)
+                .font(.robotoB(26))
                 .foregroundStyle(.textPrimary)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -95,20 +92,22 @@ struct HomeScreen: View {
 
     private func ProgressCardView(image: ImageResource, isSmallImage: Bool = false, title: String, count: Int, background: Color = .lightBlue, foreground: Color = .textPrimary, height: CGFloat = 200) -> some View {
         ZStack(alignment: .topTrailing) {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 10) {
                 Image(image)
                     .resizable()
                     .isSmall(isSmallImage) { view in
-                        view.frame(width: 30, height: 30)
+                        view
+                            .frame(width: 30, height: 30)
+                            .padding(.bottom)
                     }
                     .scaledToFit()
 
                 Text(title)
-                    .font(.headline)
+                    .font(.robotoM(18))
                     .fontWeight(.medium)
 
                 Text("^[\(count) Task](inflect: true)")
-                    .font(.body)
+                    .font(.robotoR(16))
                     .multilineTextAlignment(.leading)
             }
             .frame(maxWidth: .infinity, alignment: .leading)

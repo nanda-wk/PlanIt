@@ -16,15 +16,15 @@ struct SignUpScreen: View {
 
     var body: some View {
         VStack {
+            Spacer()
             Text("Sign Up")
-                .font(.largeTitle)
-                .fontWeight(.bold)
+                .font(.robotoB(38))
                 .foregroundStyle(.royalBlue)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            Spacer(minLength: 20)
+            Spacer()
 
-            VStack(spacing: 20) {
+            VStack {
                 CustomTextField(icon: "person", title: "Username", text: $username)
 
                 CustomTextField(icon: "envelope", title: "Email", text: $email)
@@ -34,7 +34,7 @@ struct SignUpScreen: View {
                 CustomTextField(icon: "lock", title: "Confirm Password", text: $confirmPassword, isSecure: true)
             }
 
-            Spacer(minLength: 20)
+            Spacer()
 
             NavigationLink {
                 TabScreen()
@@ -44,22 +44,17 @@ struct SignUpScreen: View {
 
             Spacer()
 
-//            Text("or with")
-//                .font(.subheadline)
-//                .foregroundStyle(.gray)
-//
-//            SignInWithAppleButton(.signUp) { appleIDRequest in
-//
-//            } onCompletion: { result in
-//
-//            }
-//            .frame(height: 60)
+            CustomDivider()
+
+            SocialButton {} googleAuthAction: {}
+
+            Spacer()
 
             NavigationLink {
                 SignInScreen()
             } label: {
                 Text("Have an account? **Sign In**")
-                    .font(.body)
+                    .font(.robotoR(16))
                     .foregroundStyle(.textSecondary)
             }
         }

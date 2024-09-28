@@ -24,8 +24,7 @@ struct TaskScreen: View {
                 VStack {
                     HStack {
                         Text("Task")
-                            .font(.title)
-                            .fontWeight(.bold)
+                            .font(.robotoB(26))
                             .foregroundStyle(.textPrimary)
 
                         Spacer()
@@ -33,7 +32,7 @@ struct TaskScreen: View {
                         Button {} label: {
                             Label {
                                 Text(currentDate.format("MMMM yyyy"))
-                                    .font(.callout)
+                                    .font(.robotoR(14))
                             } icon: {
                                 Image(.calendar)
                                     .resizable()
@@ -57,14 +56,13 @@ struct TaskScreen: View {
 
                     HStack {
                         Text("Today")
-                            .font(.title2)
-                            .fontWeight(.medium)
+                            .font(.robotoM(22))
                             .foregroundStyle(.textPrimary)
 
                         Spacer()
 
                         Text(currentTime)
-                            .font(.body)
+                            .font(.robotoR(16))
                     }
                 }
                 .padding(.horizontal)
@@ -111,6 +109,7 @@ struct TaskScreen: View {
 
             TextField(text: $searchText) {
                 Text("Search for task")
+                    .font(.robotoR(16))
                     .foregroundStyle(.lightPurple.opacity(0.5))
             }
             .foregroundStyle(.textPrimary)
@@ -144,13 +143,12 @@ struct TaskScreen: View {
     private func WeekView(_ week: [Date.Weekday]) -> some View {
         HStack {
             ForEach(week) { day in
-                VStack {
+                VStack(spacing: 10) {
                     Text(day.date.format("E").prefix(2).uppercased())
-                        .font(.headline)
-                        .fontWeight(.medium)
+                        .font(.robotoM(18))
 
                     Text(day.date.format("dd"))
-                        .font(.body)
+                        .font(.robotoR(16))
                 }
                 .padding(.vertical, 10)
                 .padding(.horizontal, 10)
@@ -176,8 +174,7 @@ struct TaskScreen: View {
 
             HStack(alignment: .top, spacing: 20) {
                 Text(time)
-                    .font(.body)
-                    .fontWeight(.medium)
+                    .font(.robotoM(16))
                     .foregroundStyle(.textSecondary)
 
                 if tasks.isEmpty {
@@ -190,10 +187,10 @@ struct TaskScreen: View {
                         .foregroundStyle(.textSecondary.opacity(0.5))
 
                         Text("+ Add")
-                            .fontWeight(.semibold)
+                            .fontWeight(.medium)
                             .foregroundStyle(.textPrimary)
                     }
-                    .font(.callout)
+                    .font(.robotoR(14))
                     .padding(.horizontal)
                 } else {
                     ScrollView(.horizontal) {
@@ -202,7 +199,6 @@ struct TaskScreen: View {
                                 TaskCard(task: task)
                             }
                         }
-//                        .padding(.horizontal)
                         .scrollTargetLayout()
                     }
                     .scrollIndicators(.hidden)
@@ -216,13 +212,16 @@ struct TaskScreen: View {
 
     private func TaskEmpty() -> some View {
         VStack(spacing: 30) {
+            Spacer()
+                .frame(height: 50)
+
             Image(.unavailable)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 200, height: 200)
 
             Text("You don’t have any schedule today.\nTap the plus button to create new to-do.")
-                .font(.body)
+                .font(.robotoM(16))
                 .foregroundStyle(.gray)
                 .multilineTextAlignment(.center)
         }

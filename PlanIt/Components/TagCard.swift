@@ -11,13 +11,12 @@ struct TagCard: View {
     var tag: Tag
     var body: some View {
         Text(tag.name)
-            .font(.footnote)
-            .fontWeight(.medium)
+            .font(.robotoM(12))
             .foregroundStyle(tag.color)
             .padding(.horizontal, 7)
             .padding(.vertical, 5)
             .background(
-                RoundedRectangle(cornerRadius: 3)
+                RoundedRectangle(cornerRadius: 5)
                     .fill(tag.color.opacity(0.15))
             )
     }

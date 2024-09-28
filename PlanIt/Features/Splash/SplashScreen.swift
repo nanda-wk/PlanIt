@@ -11,18 +11,21 @@ struct SplashScreen: View {
     var body: some View {
         NavigationStack {
             VStack {
+                Spacer()
+
                 Image(.splash)
                     .resizable()
                     .scaledToFit()
 
+                Spacer()
+
                 VStack(spacing: 20) {
                     Text("PlantIt")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
+                        .font(.robotoR(34))
                         .foregroundStyle(.royalBlue)
 
                     Text("Plan what you will do to be more organized for\n today, tomorrow and beyond")
-                        .font(.subheadline)
+                        .font(.robotoR(16))
                         .foregroundStyle(.textSecondary)
                         .multilineTextAlignment(.center)
                 }
@@ -40,13 +43,14 @@ struct SplashScreen: View {
                         SignUpScreen()
                     } label: {
                         Text("Sign Up")
-                            .font(.headline)
+                            .font(.robotoB(18))
                             .foregroundStyle(.royalBlue)
                             .frame(maxWidth: .infinity, maxHeight: 60)
                     }
                 }
-                .padding()
             }
+            .padding(.vertical)
+            .padding(.horizontal, 30)
         }
     }
 }

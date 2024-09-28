@@ -19,7 +19,7 @@ struct AppButton: View {
                 .frame(height: height)
 
             Text(title)
-                .font(.headline)
+                .font(.robotoB(18))
                 .foregroundStyle(.white)
         }
     }

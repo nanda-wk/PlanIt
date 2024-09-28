@@ -23,8 +23,7 @@ struct TaskCard: View {
                 VStack(alignment: .leading) {
                     HStack {
                         Text(task.name)
-                            .font(.headline)
-                            .fontWeight(.medium)
+                            .font(.robotoM(18))
                             .foregroundStyle(.textSecondary)
 
                         Spacer()
@@ -37,7 +36,7 @@ struct TaskCard: View {
                     }
 
                     Text(task.timeRange)
-                        .font(.body)
+                        .font(.robotoR(16))
                         .foregroundStyle(.textSecondary.opacity(0.4))
                 }
             }

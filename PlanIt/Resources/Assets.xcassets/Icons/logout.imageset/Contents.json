@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "calendar.svg",
+      "filename" : "logout.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "calendar 1.svg",
+      "filename" : "logout 1.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "calendar 2.svg",
+      "filename" : "logout 2.svg",
       "idiom" : "universal",
       "scale" : "3x"
     }

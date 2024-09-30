@@ -54,7 +54,7 @@ struct HomeScreen: View {
                     .frame(maxWidth: .infinity)
 
                     LazyVStack(spacing: 20) {
-                        ForEach(TDTask.dummyTasks()) { task in
+                        ForEach(TaskInfo.dummyTasks()) { task in
                             TaskCard(task: task)
                         }
                     }

@@ -17,6 +17,11 @@ struct AppButton: View {
             RoundedRectangle(cornerRadius: cornerRadius)
                 .fill(.royalBlue)
                 .frame(height: height)
+                .background(
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .fill(.royalBlue)
+                        .shadow(color: .royalBlue.opacity(0.4), radius: 10, x: 0, y: 5)
+                )
 
             Text(title)
                 .font(.robotoB(18))

@@ -70,10 +70,10 @@ struct TaskScreen: View {
 //                TaskEmpty()
 
                 LazyVStack {
-                    HourlyTasks(time: "07:00", tasks: TDTask.dummyTasks())
-                    HourlyTasks(time: "08:00", tasks: TDTask.dummyTasks().shuffled())
+                    HourlyTasks(time: "07:00", tasks: TaskInfo.dummyTasks())
+                    HourlyTasks(time: "08:00", tasks: TaskInfo.dummyTasks().shuffled())
                     HourlyTasks(time: "09:00", tasks: [])
-                    HourlyTasks(time: "10:00", tasks: TDTask.dummyTasks().shuffled())
+                    HourlyTasks(time: "10:00", tasks: TaskInfo.dummyTasks().shuffled())
                 }
                 .padding(.leading)
             }
@@ -167,7 +167,7 @@ struct TaskScreen: View {
         .frame(maxWidth: .infinity)
     }
 
-    private func HourlyTasks(time: String, tasks: [TDTask]) -> some View {
+    private func HourlyTasks(time: String, tasks: [TaskInfo]) -> some View {
         VStack(spacing: 20) {
             Divider()
                 .padding(.trailing)

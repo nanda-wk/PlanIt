@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct TaskCard: View {
-    var task: TDTask
+    var task: TaskInfo
 
     var body: some View {
         VStack {
             HStack {
                 RoundedRectangle(cornerRadius: 14)
                     .frame(width: 2)
-                    .foregroundStyle(task.foregroundColor)
+                    .foregroundStyle(Color.foreground(task.status))
                     .padding(.trailing)
                     .padding(.leading, 6)
                     .padding(.vertical, 10)
@@ -52,7 +52,7 @@ struct TaskCard: View {
         .padding(15)
         .background(
             RoundedRectangle(cornerRadius: 15)
-                .fill(task.backgroundColor)
+                .fill(Color.background(task.status))
         )
     }
 }

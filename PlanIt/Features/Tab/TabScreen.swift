@@ -23,10 +23,10 @@ struct TabScreen: View {
                     TaskScreen()
                         .tag(TabItem.task)
                 case .activity:
-                    Text("Activity")
+                    ActivityScreen()
                         .tag(TabItem.activity)
                 case .folder:
-                    Text("Folders")
+                    ProfileScreen()
                         .tag(TabItem.folder)
                 }
             }
@@ -34,6 +34,7 @@ struct TabScreen: View {
                 customTabBar
             }
         }
+        .animation(.smooth(duration: 0.3), value: selected)
         .navigationBarBackButtonHidden(true)
     }
 

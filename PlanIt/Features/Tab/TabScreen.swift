@@ -68,7 +68,9 @@ struct TabScreen: View {
                 selected = .task
             }
 
-            NavigationLink {} label: {
+            NavigationLink {
+                AddTaskScreen()
+            } label: {
                 Image(systemName: "plus")
                     .padding()
                     .foregroundStyle(.white)

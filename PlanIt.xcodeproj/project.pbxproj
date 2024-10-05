@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		53AA98342CAE9E6F00FE3658 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 53AA98332CAE9E6F00FE3658 /* Collections */; };
+		53AA98912CAEC48C00FE3658 /* HorizonCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 53AA98902CAEC48C00FE3658 /* HorizonCalendar */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		53FF33572CA6B4F600173230 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -65,6 +70,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53AA98912CAEC48C00FE3658 /* HorizonCalendar in Frameworks */,
+				53AA98342CAE9E6F00FE3658 /* Collections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +132,8 @@
 			);
 			name = PlanIt;
 			packageProductDependencies = (
+				53AA98332CAE9E6F00FE3658 /* Collections */,
+				53AA98902CAEC48C00FE3658 /* HorizonCalendar */,
 			);
 			productName = PlanIt;
 			productReference = 53FF33462CA6B4F400173230 /* PlanIt.app */;
@@ -208,6 +217,10 @@
 			);
 			mainGroup = 53FF333D2CA6B4F400173230;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				53AA98322CAE9E6F00FE3658 /* XCRemoteSwiftPackageReference "swift-collections" */,
+				53AA988F2CAEC48C00FE3658 /* XCRemoteSwiftPackageReference "HorizonCalendar" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 53FF33472CA6B4F400173230 /* Products */;
 			projectDirPath = "";
@@ -567,6 +580,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		53AA98322CAE9E6F00FE3658 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.4;
+			};
+		};
+		53AA988F2CAEC48C00FE3658 /* XCRemoteSwiftPackageReference "HorizonCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/HorizonCalendar.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		53AA98332CAE9E6F00FE3658 /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 53AA98322CAE9E6F00FE3658 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
+		};
+		53AA98902CAEC48C00FE3658 /* HorizonCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 53AA988F2CAEC48C00FE3658 /* XCRemoteSwiftPackageReference "HorizonCalendar" */;
+			productName = HorizonCalendar;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 53FF333E2CA6B4F400173230 /* Project object */;
 }

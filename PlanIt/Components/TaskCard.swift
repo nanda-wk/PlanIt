@@ -22,17 +22,39 @@ struct TaskCard: View {
 
                 VStack(alignment: .leading) {
                     HStack {
-                        Text(task.name)
+                        Text(task.title)
                             .font(.robotoM(18))
                             .foregroundStyle(.textSecondary)
 
                         Spacer()
 
-                        Image(systemName: "ellipsis")
-                            .scaledToFit()
-                            .frame(width: 24, height: 24)
-                            .tint(.black)
-                            .rotationEffect(.degrees(90))
+                        Menu {
+                            if task.status == .onGoing {
+                                Button("Disable", image: .closeSquare) {}
+                                    .tint(.black)
+                            }
+
+                            if task.status == .pending {
+                                Button("Enable", image: .tickSquare) {}
+                            }
+
+                            if task.status != .completed {
+                                Button("Edit", image: .editSquare) {}
+                            }
+
+                            if task.status == .completed || task.status == .canceled {
+                                Button("Restore", image: .upload) {}
+                            }
+
+                            Button("Delete", image: .delete, role: .destructive) {}
+
+                        } label: {
+                            Image(systemName: "ellipsis")
+                                .scaledToFit()
+                                .frame(width: 24, height: 24)
+                                .tint(.black)
+                                .rotationEffect(.degrees(90))
+                        }
                     }
 
                     Text(task.timeRange)

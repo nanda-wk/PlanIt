@@ -11,13 +11,14 @@ struct TaskScreen: View {
     @State private var searchText = ""
     @State private var currentDate = Date()
     @State private var currentTime = Date().format("hh:mm")
-    @State private var weekSlider: [[Date.Weekday]] = []
     @State private var currentWeekIndex: Int = 0
+
+    @GestureState private var dragOffset = CGSize.zero
 
     var body: some View {
         ScrollView {
             VStack {
-                SearchField()
+                CustomSearchField(searchText: $searchText)
                     .padding(.horizontal)
                     .padding(.bottom)
 
@@ -43,16 +44,7 @@ struct TaskScreen: View {
                         }
                     }
 
-                    TabView(selection: $currentWeekIndex) {
-                        ForEach(weekSlider.indices, id: \.self) { idx in
-
-                            WeekView(weekSlider[idx])
-                                .tag(idx)
-                        }
-                    }
-                    .tabViewStyle(.page(indexDisplayMode: .never))
-                    .frame(height: 90)
-                    .padding(.bottom)
+                    WeekView(currentDate.fetchWeekday())
 
                     HStack {
                         Text("Today")
@@ -80,68 +72,16 @@ struct TaskScreen: View {
             .padding(.bottom)
             .onAppear {
                 startClock()
-
-                if weekSlider.isEmpty {
-                    let currentWeek = Date().fetchWeekday()
-
-                    if let firstDate = currentWeek.first?.date {
-                        weekSlider.append(firstDate.createPreviousWeek())
-                    }
-
-                    weekSlider.append(currentWeek)
-
-                    if let lastDate = currentWeek.last?.date {
-                        weekSlider.append(lastDate.createNextWeek())
-                    }
-                }
             }
         }
         .scrollIndicators(.hidden)
         .padding(.top, 1)
     }
 
-    private func SearchField() -> some View {
-        HStack(spacing: 15) {
-            Image(systemName: "magnifyingglass")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 20, height: 20)
-
-            TextField(text: $searchText) {
-                Text("Search for task")
-                    .font(.robotoR(16))
-                    .foregroundStyle(.lightPurple.opacity(0.5))
-            }
-            .foregroundStyle(.textPrimary)
-            .textInputAutocapitalization(.never)
-            .keyboardType(.asciiCapable)
-            .autocorrectionDisabled(true)
-            .frame(maxWidth: .infinity)
-            .overlay {
-                HStack {
-                    Spacer()
-                    if !searchText.isEmpty {
-                        Button {
-                            searchText = ""
-                        } label: {
-                            Image(systemName: "xmark.app.fill")
-                        }
-                    }
-                }
-            }
-        }
-        .foregroundStyle(.lightPurple.opacity(0.5))
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: 15)
-                .fill(.gray.opacity(0.1))
-        )
-    }
-
     // TODO: - Review WeekPicker
     @ViewBuilder
     private func WeekView(_ week: [Date.Weekday]) -> some View {
-        HStack {
+        HStack(spacing: 10) {
             ForEach(week) { day in
                 VStack(spacing: 10) {
                     Text(day.date.format("E").prefix(2).uppercased())
@@ -165,6 +105,7 @@ struct TaskScreen: View {
             }
         }
         .frame(maxWidth: .infinity)
+        .padding(.vertical)
     }
 
     private func HourlyTasks(time: String, tasks: [TaskInfo]) -> some View {

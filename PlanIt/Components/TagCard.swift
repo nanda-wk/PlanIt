@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TagCard: View {
-    var tag: Tag
+    let tag: Tag
     var body: some View {
         Text(tag.name)
             .font(.robotoM(12))

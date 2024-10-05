@@ -21,11 +21,16 @@ extension Date {
 
     func fetchWeekday(_ date: Date = .init()) -> [Weekday] {
         let calendar = Calendar.current
-        let startDate = calendar.startOfDay(for: date)
+        // Adjust the start date to the previous Saturday if today is not Saturday
+        let today = calendar.startOfDay(for: self)
+        var startDate = today
+
+        // Find the last Monday
+        if let lastMonday = calendar.date(byAdding: .day, value: -((calendar.component(.weekday, from: today) + 5) % 7), to: today) {
+            startDate = lastMonday
+        }
 
         var week: [Weekday] = []
-        let weekDate = calendar.dateInterval(of: .weekOfMonth, for: startDate)
-        guard (weekDate?.start) != nil else { return [] }
 
         for index in 0 ..< 7 {
             if let weekDay = calendar.date(byAdding: .day, value: index, to: startDate) {
@@ -40,7 +45,7 @@ extension Date {
         let calendar = Calendar.current
         let startDate = calendar.startOfDay(for: self)
 
-        guard let nextDate = calendar.date(byAdding: .day, value: 1, to: startDate) else { return [] }
+        guard let nextDate = calendar.date(byAdding: .day, value: 7, to: startDate) else { return [] }
 
         return fetchWeekday(nextDate)
     }
@@ -49,7 +54,7 @@ extension Date {
         let calendar = Calendar.current
         let startDate = calendar.startOfDay(for: self)
 
-        guard let nextDate = calendar.date(byAdding: .day, value: -1, to: startDate) else { return [] }
+        guard let nextDate = calendar.date(byAdding: .day, value: -7, to: startDate) else { return [] }
 
         return fetchWeekday(nextDate)
     }

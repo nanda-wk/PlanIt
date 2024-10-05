@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct ProfileScreen: View {
-    private let columns = Array(repeating: GridItem(.flexible(), spacing: 10), count: 2)
+    private let columns = Array(repeating: GridItem(.fixed(150), spacing: 10), count: 2)
     var body: some View {
         VStack {
-            CustomNavigationBar(title: "", menuButtonAction: {})
+            CustomNavigationBar(title: "", showBackButton: false, menuButtonAction: {})
             ScrollView {
                 VStack(spacing: 30) {
                     VStack(spacing: 20) {
@@ -29,30 +29,49 @@ struct ProfileScreen: View {
                     .foregroundStyle(.textPrimary)
 
                     LazyVGrid(columns: columns, spacing: 10) {
-                        ForEach(0 ..< 6) { _ in
+                        ForEach(Board.dummyBoards()) { board in
                             ZStack {
                                 RoundedRectangle(cornerRadius: 14)
-                                    .fill(.lightPurple.opacity(0.25))
-                                    .frame(width: 156, height: 156)
+                                    .fill(Color.foreground(board.type).opacity(0.25))
 
                                 VStack(spacing: 10) {
                                     ZStack {
                                         RoundedRectangle(cornerRadius: 14)
-                                            .fill(.lightPurple)
+                                            .fill(Color.foreground(board.type))
                                             .frame(width: 50, height: 50)
 
                                         Image(systemName: "person")
                                             .foregroundStyle(.white)
                                     }
 
-                                    Text("Personal")
+                                    Text(board.name)
                                         .font(.robotoM(16))
 
-                                    Text("6 Tasks")
+                                    Text("^[\(board.tasks.count) Task](inflect: true)")
                                         .font(.robotoM(14))
                                 }
                                 .padding()
                             }
+                        }
+
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 14)
+                                .fill(.lightRed.opacity(0.25))
+
+                            VStack(spacing: 10) {
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 14)
+                                        .fill(.lightRed)
+                                        .frame(width: 50, height: 50)
+
+                                    Image(systemName: "plus.square")
+                                        .foregroundStyle(.white)
+                                }
+
+                                Text("Create Board")
+                                    .font(.robotoM(16))
+                            }
+                            .padding()
                         }
                     }
                     .padding(.horizontal, 40)

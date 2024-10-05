@@ -8,14 +8,17 @@
 import SwiftUI
 
 struct CustomNavigationBar: View {
+    @Environment(\.dismiss) var dismiss
     var title: String
-    var backButtonAction: (() -> Void)?
+    var showBackButton = true
     var menuButtonAction: (() -> Void)?
 
     var body: some View {
         HStack {
-            if let backButtonAction {
-                Button(action: backButtonAction) {
+            if showBackButton {
+                Button {
+                    dismiss()
+                } label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 14)
                             .fill(.white)

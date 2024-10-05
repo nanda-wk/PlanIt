@@ -12,6 +12,7 @@ struct HomeScreen: View {
         GridItem(.flexible()),
         GridItem(.flexible()),
     ]
+
     var body: some View {
         ScrollView {
             VStack {
@@ -75,15 +76,31 @@ struct HomeScreen: View {
 
             HStack(spacing: 20) {
                 VStack(spacing: 20) {
-                    ProgressCardView(image: .imac, title: "Completed", count: 86)
+                    NavigationLink {
+                        TaskOverviewScreen(title: "Completed Tasks")
+                    } label: {
+                        ProgressCardView(image: .imac, title: "Completed", count: 86)
+                    }
 
-                    ProgressCardView(image: .cancelSquare, isSmallImage: true, title: "Canceled", count: 15, background: .lightRed, foreground: .white, height: 160)
+                    NavigationLink {
+                        TaskOverviewScreen(title: "canceled Tasks")
+                    } label: {
+                        ProgressCardView(image: .closeSquare, isSmallImage: true, title: "Canceled", count: 15, background: .lightRed, foreground: .white, height: 160)
+                    }
                 }
 
                 VStack(spacing: 20) {
-                    ProgressCardView(image: .timeSquare, isSmallImage: true, title: "Pending", count: 15, background: .lightPurple, foreground: .white, height: 160)
+                    NavigationLink {
+                        TaskOverviewScreen(title: "Pending Tasks")
+                    } label: {
+                        ProgressCardView(image: .timeSquare, isSmallImage: true, title: "Pending", count: 15, background: .lightPurple, foreground: .white, height: 160)
+                    }
 
-                    ProgressCardView(image: .tasks, title: "On Going", count: 67, background: .lightGreen)
+                    NavigationLink {
+                        TaskOverviewScreen(title: "On Going Tasks")
+                    } label: {
+                        ProgressCardView(image: .tasks, title: "On Going", count: 67, background: .lightGreen)
+                    }
                 }
             }
         }
@@ -97,6 +114,8 @@ struct HomeScreen: View {
                     .resizable()
                     .isSmall(isSmallImage) { view in
                         view
+                            .renderingMode(.template)
+                            .foregroundStyle(.white)
                             .frame(width: 30, height: 30)
                             .padding(.bottom)
                     }

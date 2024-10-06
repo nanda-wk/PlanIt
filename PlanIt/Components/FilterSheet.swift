@@ -8,15 +8,24 @@
 import SwiftUI
 
 struct FilterSheet: View {
+    @Binding var filter: Filter
+
     var body: some View {
         VStack(alignment: .leading, spacing: 40) {
+            Spacer()
+                .frame(height: 1)
+                .frame(maxWidth: .infinity)
+
             VStack(alignment: .leading, spacing: 20) {
                 Text("Sort by tag")
                     .font(.robotoM(16))
 
                 LazyHStack {
                     ForEach(Tag.dummyTags()) { tag in
-                        SortCapsule(tag.name, color: tag.color.opacity(0.15), foreground: tag.color)
+                        SortCapsule(tag.name, color: tag.color.opacity(0.15), foreground: tag.color, isSelected: filter.sortByTags.contains(tag))
+                            .onTapGesture {
+                                toggleSelection(forTag: tag)
+                            }
                     }
                 }
                 .frame(height: 40)
@@ -28,7 +37,10 @@ struct FilterSheet: View {
 
                 LazyHStack {
                     ForEach(TaskType.allCases) { type in
-                        SortCapsule(type.rawValue, color: .foreground(type), foreground: .white)
+                        SortCapsule(type.rawValue, color: .foreground(type), foreground: .white, isSelected: filter.sortByType.contains(type))
+                            .onTapGesture {
+                                toggleSelection(forType: type)
+                            }
                     }
                 }
                 .frame(height: 40)
@@ -38,9 +50,16 @@ struct FilterSheet: View {
                 Text("Sort by")
                     .font(.robotoM(16))
 
-                HStack {
-                    SortCapsule("Newest", color: .gray.opacity(0.1), foreground: .black)
-                    SortCapsule("Oldest", color: .gray.opacity(0.1), foreground: .black)
+                LazyHStack {
+                    SortCapsule("Newest", color: .royalBlue, foreground: .white, isSelected: filter.sortByDate.contains(.newest))
+                        .onTapGesture {
+                            toggleSelection(forDate: .newest)
+                        }
+                    SortCapsule("Oldest", color: .royalBlue, foreground: .white, isSelected: filter.sortByDate.contains(.oldest))
+                        .onTapGesture {
+                            toggleSelection(forDate: .oldest)
+                        }
+
                     Spacer()
                 }
                 .frame(height: 40)
@@ -49,19 +68,40 @@ struct FilterSheet: View {
         .padding()
     }
 
-    private func SortCapsule(_ value: String, color: Color, foreground: Color) -> some View {
+    private func SortCapsule(_ value: String, color: Color, foreground: Color, isSelected: Bool) -> some View {
         ZStack {
             Capsule()
-                .fill(color)
+                .fill(isSelected ? color : .gray.opacity(0.14))
 
             Text(value)
                 .font(.robotoR(14))
-                .foregroundStyle(foreground)
+                .foregroundStyle(isSelected ? foreground : .black)
                 .padding(.horizontal)
+        }
+        .animation(.easeInOut, value: isSelected)
+    }
+
+    private func toggleSelection(forTag tag: Tag? = nil, forType type: TaskType? = nil, forDate dateRange: Filter.SortByDate? = nil) {
+        if let tag {
+            if !filter.sortByTags.insert(tag).inserted {
+                filter.sortByTags.remove(tag)
+            }
+        }
+
+        if let type {
+            if !filter.sortByType.insert(type).inserted {
+                filter.sortByType.remove(type)
+            }
+        }
+
+        if let dateRange {
+            if !filter.sortByDate.insert(dateRange).inserted {
+                filter.sortByDate.remove(dateRange)
+            }
         }
     }
 }
 
 #Preview {
-    FilterSheet()
+    FilterSheet(filter: .constant(Filter()))
 }

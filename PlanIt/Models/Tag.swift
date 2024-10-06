@@ -8,8 +8,8 @@
 import Foundation
 import SwiftUI
 
-struct Tag: Identifiable, Hashable {
-    let id = UUID()
+struct Tag: Identifiable, Equatable, Hashable {
+    var id = UUID()
     let name: String
     let color: Color
 }
@@ -17,10 +17,10 @@ struct Tag: Identifiable, Hashable {
 extension Tag {
     static func dummyTags() -> [Tag] {
         [
-            .init(name: "Office", color: .lightPurple),
-            .init(name: "Home", color: .red),
-            .init(name: "Urgent", color: .lightRed),
-            .init(name: "Work", color: .lightBlue),
+            .init(id: .init(uuidString: "11231231-2312-1231-2312-123123123123")!, name: "Office", color: .lightPurple),
+            .init(id: .init(uuidString: "21231231-2312-1231-2312-123123123123")!, name: "Home", color: .red),
+            .init(id: .init(uuidString: "31231231-2312-1231-2312-123123123123")!, name: "Urgent", color: .lightRed),
+            .init(id: .init(uuidString: "41231231-2312-1231-2312-123123123123")!, name: "Work", color: .lightBlue),
         ]
     }
 }

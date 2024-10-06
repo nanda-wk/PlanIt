@@ -11,7 +11,7 @@ struct ProfileScreen: View {
     private let columns = Array(repeating: GridItem(.fixed(150), spacing: 10), count: 2)
     var body: some View {
         VStack {
-            CustomNavigationBar(title: "", showBackButton: false, menuButtonAction: {})
+            CustomNavigationBar(title: "", showBackButton: false, showMenuButton: true)
             ScrollView {
                 VStack(spacing: 30) {
                     VStack(spacing: 20) {

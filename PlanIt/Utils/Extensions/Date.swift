@@ -21,12 +21,11 @@ extension Date {
 
     func fetchWeekday(_ date: Date = .init()) -> [Weekday] {
         let calendar = Calendar.current
-        // Adjust the start date to the previous Saturday if today is not Saturday
         let today = calendar.startOfDay(for: self)
         var startDate = today
 
         // Find the last Monday
-        if let lastMonday = calendar.date(byAdding: .day, value: -((calendar.component(.weekday, from: today) + 5) % 7), to: today) {
+        if let lastMonday = calendar.date(byAdding: .day, value: -((calendar.component(.weekday, from: today) - 1) % 7), to: today) {
             startDate = lastMonday
         }
 

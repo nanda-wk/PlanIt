@@ -11,7 +11,7 @@ struct CustomNavigationBar: View {
     @Environment(\.dismiss) var dismiss
     var title: String
     var showBackButton = true
-    var menuButtonAction: (() -> Void)?
+    var showMenuButton = false
 
     var body: some View {
         HStack {
@@ -47,8 +47,14 @@ struct CustomNavigationBar: View {
 
             Spacer()
 
-            if let menuButtonAction {
-                Button(action: menuButtonAction) {
+            if showMenuButton {
+                Menu {
+                    Button("Setting", image: .setting) {}
+                        .tint(.textPrimary)
+
+                    Button("Log Out", image: .logout) {}
+                        .tint(.textPrimary)
+                } label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 14)
                             .fill(.white)
@@ -63,6 +69,7 @@ struct CustomNavigationBar: View {
                             .scaledToFit()
                     }
                 }
+
             } else {
                 Spacer()
                     .frame(width: 50, height: 50)

@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct CustomSearchField: View {
-    @Binding var searchText: String
+    @Binding var filter: Filter
     @State private var isPresented = false
-    var filterButtonAction: (() -> Void)?
+    var showFilter = false
 
     var body: some View {
         HStack {
@@ -24,7 +24,7 @@ struct CustomSearchField: View {
                         .scaledToFit()
                         .frame(width: 20, height: 20)
 
-                    TextField(text: $searchText) {
+                    TextField(text: $filter.searchText) {
                         Text("Search for task")
                             .font(.robotoR(16))
                             .foregroundStyle(.gray.opacity(0.5))
@@ -37,9 +37,9 @@ struct CustomSearchField: View {
                     .overlay {
                         HStack {
                             Spacer()
-                            if !searchText.isEmpty {
+                            if !filter.searchText.isEmpty {
                                 Button {
-                                    searchText = ""
+                                    filter.searchText = ""
                                 } label: {
                                     Image(systemName: "xmark.app.fill")
                                 }
@@ -51,7 +51,7 @@ struct CustomSearchField: View {
                 .padding()
             }
 
-            if let filterButtonAction {
+            if showFilter {
                 Button {
                     isPresented.toggle()
                 } label: {
@@ -66,13 +66,13 @@ struct CustomSearchField: View {
                     }
                 }
                 .frame(width: 60)
+                .sheet(isPresented: $isPresented) {
+                    FilterSheet(filter: $filter)
+                        .presentationDetents([.medium])
+                        .presentationDragIndicator(.visible)
+                }
             }
         }
         .frame(height: 60)
-        .sheet(isPresented: $isPresented) {
-            FilterSheet()
-                .presentationDetents([.medium])
-                .presentationDragIndicator(.visible)
-        }
     }
 }

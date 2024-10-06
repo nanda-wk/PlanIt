@@ -17,13 +17,11 @@ struct CustomDatePicker: View {
             let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
             HStack(spacing: 20) {
-                VStack(alignment: .leading, spacing: 10) {
-                    Text(extraDate()[0])
-                        .font(.caption)
-                        .fontWeight(.semibold)
+                HStack(spacing: 10) {
                     Text(extraDate()[1])
-                        .font(.title.bold())
+                    Text(extraDate()[0])
                 }
+                .font(.robotoB(16))
 
                 Spacer()
 
@@ -33,8 +31,9 @@ struct CustomDatePicker: View {
                     }
                 } label: {
                     Image(systemName: "chevron.left")
-                        .font(.title2)
+                        .font(.robotoB(16))
                 }
+                .buttonStyle(.plain)
 
                 Button {
                     withAnimation {
@@ -42,8 +41,9 @@ struct CustomDatePicker: View {
                     }
                 } label: {
                     Image(systemName: "chevron.right")
-                        .font(.title2)
+                        .font(.robotoB(16))
                 }
+                .buttonStyle(.plain)
             }
             .padding(.horizontal)
 
@@ -51,23 +51,20 @@ struct CustomDatePicker: View {
             HStack(spacing: 0) {
                 ForEach(days, id: \.self) { day in
                     Text(day)
-                        .font(.callout)
-                        .fontWeight(.semibold)
+                        .font(.robotoM(16))
                         .frame(maxWidth: .infinity)
                 }
             }
-
             // Date
             // Lazy Grid..
             let columns = Array(repeating: GridItem(.flexible()), count: 7)
 
-            LazyVGrid(columns: columns, spacing: 15) {
+            LazyVGrid(columns: columns) {
                 ForEach(extractDate()) { value in
                     CardView(value: value)
                         .background(
-                            Capsule()
-                                .fill(Color("Pink"))
-                                .padding(.horizontal, 8)
+                            Circle()
+                                .fill(.royalBlue)
                                 .opacity(isSameDay(date1: value.date, date2: currentDate) ? 1 : 0)
                         )
                         .onTapGesture {
@@ -75,11 +72,11 @@ struct CustomDatePicker: View {
                         }
                 }
             }
+
+            Spacer()
         }
-        .onChange(of: currentMonth) { _ in
-            // update month
-            currentDate = getCurrentMonth()
-        }
+        .padding()
+        .padding(.top, 50)
     }
 
     @ViewBuilder
@@ -87,15 +84,16 @@ struct CustomDatePicker: View {
         VStack {
             if value.day != -1 {
                 Text("\(value.day)")
-                    .font(.title3.bold())
-                    .foregroundColor(isSameDay(date1: value.date, date2: currentDate) ? .white : .primary)
+                    .font(.robotoM(16))
+                    .foregroundColor(isSameDay(date1: value.date, date2: currentDate) ? .white : .primary.opacity(0.7))
                     .frame(maxWidth: .infinity)
-
-                Spacer()
             }
         }
         .padding(.vertical, 9)
-        .frame(height: 60, alignment: .top)
+        .frame(height: 60, alignment: .center)
+        .onAppear {
+            print("Card for day \(value.day) re-rendered")
+        }
     }
 
     // Checking dates
@@ -108,7 +106,7 @@ struct CustomDatePicker: View {
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY MMMM"
 
-        let date = formatter.string(from: currentDate)
+        let date = formatter.string(from: getCurrentMonth())
 
         return date.components(separatedBy: " ")
     }
@@ -130,7 +128,7 @@ struct CustomDatePicker: View {
         // Getting Current month date
         let currentMonth = getCurrentMonth()
 
-        var days = currentMonth.getAllDates().compactMap { date -> DateValue in
+        var days = currentMonth.getAllDates().compactMap { date in
             let day = calendar.component(.day, from: date)
             let dateValue = DateValue(day: day, date: date)
             return dateValue
@@ -144,6 +142,14 @@ struct CustomDatePicker: View {
         }
 
         return days
+    }
+
+    private func calculateGridHeight() -> CGFloat {
+        let maxWeeks = 7 // Max number of weeks in a month (worst case scenario)
+        let rowHeight: CGFloat = 60 // Height of each row (date cells)
+        let spacing: CGFloat = 15 // Spacing between rows
+
+        return (rowHeight * CGFloat(maxWeeks)) + (spacing * CGFloat(maxWeeks - 1))
     }
 }
 
@@ -161,14 +167,14 @@ extension Date {
         let range = calendar.range(of: .day, in: .month, for: startDate)
 
         // getting date...
-        return range!.compactMap { day -> Date in
-            return calendar.date(byAdding: .day, value: day - 1, to: startDate)!
+        return range!.compactMap { day in
+            calendar.date(byAdding: .day, value: day - 1, to: startDate)!
         }
     }
 }
 
 struct DateValue: Identifiable {
-    var id = UUID().uuidString
+    var id = UUID()
     var day: Int
     var date: Date
 }

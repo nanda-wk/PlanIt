@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TaskScreen: View {
-    @State private var searchText = ""
+    @State private var filter = Filter()
     @State private var currentDate = Date()
     @State private var currentTime = Date().format("hh:mm")
     @State private var currentWeekIndex: Int = 0
@@ -18,7 +18,7 @@ struct TaskScreen: View {
     var body: some View {
         ScrollView {
             VStack {
-                CustomSearchField(searchText: $searchText)
+                CustomSearchField(filter: $filter)
                     .padding(.horizontal)
                     .padding(.bottom)
 

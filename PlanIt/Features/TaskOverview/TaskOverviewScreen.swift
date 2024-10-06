@@ -9,8 +9,9 @@ import HorizonCalendar
 import SwiftUI
 
 struct TaskOverviewScreen: View {
-    @State private var searchText = ""
-    @State private var showingCalendar = false
+    @State private var filter = Filter()
+    @State private var showDatePicker = false
+    @State private var date = Date()
 
     let title: String
 
@@ -19,11 +20,11 @@ struct TaskOverviewScreen: View {
             CustomNavigationBar(title: "Completed Tasks")
             ScrollView {
                 LazyVStack {
-                    CustomSearchField(searchText: $searchText, filterButtonAction: {})
+                    CustomSearchField(filter: $filter, showFilter: true)
                         .padding()
 
                     Button {
-                        showingCalendar.toggle()
+                        showDatePicker.toggle()
                     } label: {
                         HStack {
                             Image(.calendar)
@@ -31,13 +32,17 @@ struct TaskOverviewScreen: View {
                                 .scaledToFit()
                                 .frame(width: 24, height: 24)
 
-                            Text("October 2024")
+                            Text(date.format("MMMM yyyy"))
                                 .font(.robotoM(22))
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
                     }
                     .buttonStyle(.plain)
+                    .sheet(isPresented: $showDatePicker) {
+                        CustomDatePicker(currentDate: $date)
+                            .presentationDragIndicator(.visible)
+                    }
 
                     ForEach(0 ..< 3) { i in
                         Section {

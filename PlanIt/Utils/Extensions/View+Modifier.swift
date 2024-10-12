@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 extension View {
     func isSameDay(_ date1: Date, _ date2: Date) -> Bool {
@@ -19,5 +20,14 @@ extension View {
         } else {
             self
         }
+    }
+}
+
+
+@MainActor extension View {
+    func previewEnvironment() -> some View {
+        self
+            .modelContainer(SwiftDataManager.shared.container)
+            .environment(TagRepository(modelContext: SwiftDataManager.shared.container.mainContext))
     }
 }

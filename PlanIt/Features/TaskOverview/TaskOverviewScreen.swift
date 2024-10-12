@@ -48,9 +48,9 @@ struct TaskOverviewScreen: View {
                         Section {
                             ScrollView(.horizontal) {
                                 LazyHStack(spacing: 10) {
-                                    ForEach(TaskInfo.dummyTaskOverview()) { task in
-                                        TaskCard(task: task)
-                                    }
+//                                    ForEach(TaskInfo.dummyTaskOverview()) { task in
+//                                        TaskCard(task: task)
+//                                    }
                                 }
                                 .scrollTargetLayout()
                             }

@@ -5,10 +5,13 @@
 //  Created by Nanda WK on 2024-10-05.
 //
 
+import SwiftData
 import SwiftUI
 
 struct AddTaskScreen: View {
-    @State private var title = "Code review"
+    @Environment(TagRepository.self) var tagRepository
+
+    @State private var title = ""
     @State private var date = Date()
     @State private var startTime = Date()
     @State private var endTime = Date()
@@ -18,6 +21,8 @@ struct AddTaskScreen: View {
 
     @State private var showDatePicker = false
     @State private var showTimePicker: TimePicker?
+    @State private var isPresentedAddNewTag = false
+    @State private var selectedTag: Tag?
 
     init() {
         let segmentedAppearance = UISegmentedControl.appearance()
@@ -142,14 +147,26 @@ struct AddTaskScreen: View {
                             .frame(height: 40)
 
                         LazyVGrid(columns: .init(repeating: .init(.flexible()), count: 4), spacing: 10) {
-                            ForEach(Tag.dummyTags()) { tag in
+                            ForEach(tagRepository.tags) { tag in
                                 CapsuleTag(tag: tag, isSelected: selectedTags.contains(tag))
                                     .onTapGesture {
                                         toggleSelection(for: tag)
                                     }
+                                    .contextMenu {
+                                        Button("Edit", systemImage: "pencil") {
+                                            selectedTag = tag
+                                            isPresentedAddNewTag.toggle()
+                                        }
+
+                                        Button("Delete", systemImage: "trash", role: .destructive) {
+                                            tagRepository.delete(tag)
+                                        }
+                                    }
                             }
 
-                            Button {} label: {
+                            Button {
+                                isPresentedAddNewTag.toggle()
+                            } label: {
                                 Text("+ Add new tag")
                                     .font(.robotoR(14))
                                     .foregroundStyle(.royalBlue)
@@ -166,6 +183,10 @@ struct AddTaskScreen: View {
                     }
                 }
                 .padding(.horizontal)
+                .sheet(isPresented: $isPresentedAddNewTag) {
+                    AddNewTagSheet(tag: selectedTag)
+                        .presentationDetents([.medium])
+                }
             }
             .navigationBarBackButtonHidden(true)
         }
@@ -193,11 +214,11 @@ struct AddTaskScreen: View {
     private func CapsuleTag(tag: Tag, isSelected: Bool) -> some View {
         ZStack {
             Capsule()
-                .fill(tag.color.opacity(isSelected ? 0.5 : 0.15))
+                .fill(Color(hex: tag.color).opacity(isSelected ? 0.5 : 0.15))
 
             Text(tag.name)
                 .font(.robotoR(14))
-                .foregroundStyle(tag.color)
+                .foregroundStyle(Color(hex: tag.color))
                 .padding(.horizontal)
         }
         .frame(height: 36)
@@ -215,8 +236,10 @@ struct AddTaskScreen: View {
             selectedTags.remove(tag)
         }
     }
+
 }
 
 #Preview {
     AddTaskScreen()
+        .previewEnvironment()
 }

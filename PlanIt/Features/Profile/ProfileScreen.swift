@@ -29,30 +29,30 @@ struct ProfileScreen: View {
                     .foregroundStyle(.textPrimary)
 
                     LazyVGrid(columns: columns, spacing: 10) {
-                        ForEach(Board.dummyBoards()) { board in
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 14)
-                                    .fill(Color.foreground(board.type).opacity(0.25))
-
-                                VStack(spacing: 10) {
-                                    ZStack {
-                                        RoundedRectangle(cornerRadius: 14)
-                                            .fill(Color.foreground(board.type))
-                                            .frame(width: 50, height: 50)
-
-                                        Image(systemName: "person")
-                                            .foregroundStyle(.white)
-                                    }
-
-                                    Text(board.name)
-                                        .font(.robotoM(16))
-
-                                    Text("^[\(board.tasks.count) Task](inflect: true)")
-                                        .font(.robotoM(14))
-                                }
-                                .padding()
-                            }
-                        }
+//                        ForEach(Board.dummyBoards()) { board in
+//                            ZStack {
+//                                RoundedRectangle(cornerRadius: 14)
+//                                    .fill(Color.foreground(board.type).opacity(0.25))
+//
+//                                VStack(spacing: 10) {
+//                                    ZStack {
+//                                        RoundedRectangle(cornerRadius: 14)
+//                                            .fill(Color.foreground(board.type))
+//                                            .frame(width: 50, height: 50)
+//
+//                                        Image(systemName: "person")
+//                                            .foregroundStyle(.white)
+//                                    }
+//
+//                                    Text(board.name)
+//                                        .font(.robotoM(16))
+//
+//                                    Text("^[\(board.tasks.count) Task](inflect: true)")
+//                                        .font(.robotoM(14))
+//                                }
+//                                .padding()
+//                            }
+//                        }
 
                         ZStack {
                             RoundedRectangle(cornerRadius: 14)

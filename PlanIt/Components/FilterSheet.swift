@@ -5,10 +5,12 @@
 //  Created by Nanda WK on 2024-10-05.
 //
 
+import SwiftData
 import SwiftUI
 
 struct FilterSheet: View {
     @Binding var filter: Filter
+    @Query private var tags: [Tag] = []
 
     var body: some View {
         VStack(alignment: .leading, spacing: 40) {
@@ -21,8 +23,8 @@ struct FilterSheet: View {
                     .font(.robotoM(16))
 
                 LazyHStack {
-                    ForEach(Tag.dummyTags()) { tag in
-                        SortCapsule(tag.name, color: tag.color.opacity(0.15), foreground: tag.color, isSelected: filter.sortByTags.contains(tag))
+                    ForEach(tags) { tag in
+                        SortCapsule(tag.name, color: Color(hex: tag.color).opacity(0.15), foreground: Color(hex: tag.color), isSelected: filter.sortByTags.contains(tag))
                             .onTapGesture {
                                 toggleSelection(forTag: tag)
                             }

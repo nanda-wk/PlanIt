@@ -14,14 +14,14 @@ struct Board: Identifiable {
     let tasks: [TaskInfo]
 }
 
-extension Board {
-    static func dummyBoards() -> [Board] {
-        [
-            .init(name: "Personal", type: .personal, tasks: TaskInfo.dummyTasks()),
-            .init(name: "Work", type: .secret, tasks: TaskInfo.dummyTasks()),
-            .init(name: "Private", type: .confidential, tasks: TaskInfo.dummyTasks()),
-            .init(name: "Meeting", type: .personal, tasks: TaskInfo.dummyTasks()),
-            .init(name: "Event", type: .personal, tasks: TaskInfo.dummyTasks()),
-        ]
-    }
-}
+//extension Board {
+//    static func dummyBoards() -> [Board] {
+//        [
+//            .init(name: "Personal", type: .personal, tasks: TaskInfo.dummyTasks()),
+//            .init(name: "Work", type: .secret, tasks: TaskInfo.dummyTasks()),
+//            .init(name: "Private", type: .confidential, tasks: TaskInfo.dummyTasks()),
+//            .init(name: "Meeting", type: .personal, tasks: TaskInfo.dummyTasks()),
+//            .init(name: "Event", type: .personal, tasks: TaskInfo.dummyTasks()),
+//        ]
+//    }
+//}

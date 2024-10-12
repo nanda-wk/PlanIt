@@ -62,10 +62,10 @@ struct TaskScreen: View {
 //                TaskEmpty()
 
                 LazyVStack {
-                    HourlyTasks(time: "07:00", tasks: TaskInfo.dummyTasks())
-                    HourlyTasks(time: "08:00", tasks: TaskInfo.dummyTasks().shuffled())
-                    HourlyTasks(time: "09:00", tasks: [])
-                    HourlyTasks(time: "10:00", tasks: TaskInfo.dummyTasks().shuffled())
+//                    HourlyTasks(time: "07:00", tasks: TaskInfo.dummyTasks())
+//                    HourlyTasks(time: "08:00", tasks: TaskInfo.dummyTasks().shuffled())
+//                    HourlyTasks(time: "09:00", tasks: [])
+//                    HourlyTasks(time: "10:00", tasks: TaskInfo.dummyTasks().shuffled())
                 }
                 .padding(.leading)
             }
